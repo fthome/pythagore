@@ -54,9 +54,13 @@ class bloc(object):
         y = 0
         for i in range(self.valeur / self.facteurs[face]):
             print(self.facteurs[face])
-            text = dwg.add(dwg.g(font_size=10))
+            #text = dwg.add(dwg.g(font_size=10))
             print("insert text at :%s,%s"%(largeur/2,y+self.facteurs[face]*self.table.longueur_unit/2))
-            text.add(dwg.text(str(self.facteurs[face]),insert=(largeur/2,y+self.facteurs[face]*self.table.longueur_unit/2)))
+            #text.add(dwg.text(str(self.facteurs[face]),insert=(largeur/2,y+self.facteurs[face]*self.table.longueur_unit/2)))
+            text = dwg.text(str(self.facteurs[face]),insert=(largeur/2,y+self.facteurs[face]*self.table.longueur_unit/2))
+            #area = dwg.textArea(insert = (largeur/2,y+self.facteurs[face]*self.table.longueur_unit/2), text_align='center')
+            #area.write(str(self.facteurs[face]))
+            #text.add(area)
             g.add(text)
             y += self.table.longueur_unit*self.facteurs[face]
         return g
