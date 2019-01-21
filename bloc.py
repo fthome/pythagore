@@ -7,7 +7,7 @@ class bloc(object):
         * pour chacune de ses faces
             * un facteur qui correspond au chiffre qui sera affiché
     '''
-    compteur = 0
+
     def __init__(self, valeur, facteurs):
         '''Initialisation
             valeur      :    valeur total du blocs
@@ -20,15 +20,16 @@ class bloc(object):
             assert self.valeur%facteur==0, "Erreur dans la définition de la table. %s n'est pas un bon facteur pour %s"%(facteur, self.valeur)
         self.table = None
         self.tasseau = None
-        self.compteur +=1
-        self.indice = self.compteur
+
 
     def __str__(self):
-        return "bloc_%s"%(self.indice)
+        #return "bloc_%s"%(self.indice)
+        return "Bloc %s-%s"%(self.valeur, self.facteurs)
 
     def genere(self, dwg, face):
         '''Return un objet svgwrite : une face du bloc
         '''
+        print("%s-face %s"%(str(self),face))
         print("couleur : %s"%self.table.couleur(self.facteurs[face]))
         # Create the group
         g = dwg.defs.add(dwg.g())
@@ -54,7 +55,8 @@ class bloc(object):
         for i in range(self.valeur / self.facteurs[face]):
             print(self.facteurs[face])
             text = dwg.add(dwg.g(font_size=10))
-            text.add(dwg.text(str(self.facteurs[face]),(largeur/2,y+self.facteurs[face]*self.table.longueur_unit/2)))
+            print("insert text at :%s,%s"%(largeur/2,y+self.facteurs[face]*self.table.longueur_unit/2))
+            text.add(dwg.text(str(self.facteurs[face]),insert=(largeur/2,y+self.facteurs[face]*self.table.longueur_unit/2)))
             g.add(text)
             y += self.table.longueur_unit*self.facteurs[face]
         return g

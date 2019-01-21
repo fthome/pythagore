@@ -1,6 +1,8 @@
 # -*-coding:Utf-8 -*
 
 import svgwrite
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPDF
 
 class table(object):
     '''Une table de pythagore est un puzzle 3D
@@ -41,16 +43,17 @@ class table(object):
         for face in range(4):
             print("face %s :"%face)
             filename = "%s_F%s.svg"%(nom,face+1)
-            w = len(tasseaux_ids)*(self.largeur_tasseau + self.largueur_espace) + self.largueur_espace
+            w = len(tasseaux_ids)*(self.largeur_tasseau + self.largueur_espace) + self.largueur_espace + 50
             h = self.longueur_tasseau
-            dwg = svgwrite.Drawing(filename, (w,h), debug = True)
-            x = 0
+            dwg = svgwrite.Drawing(filename, (w,h), debug = True, profile = 'tiny')
+            x = 50 # Une sorte de bug copie tous les textes sur une colonne => zone poubelle
             for tasseau_id in tasseaux_ids:
-                print("tasseau %s"%tasseau_id)
                 svg_tasseau = self.tasseaux[tasseau_id].genere(dwg, face)
                 dwg.add(dwg.use(svg_tasseau, insert = (x,0)))
                 x += self.largeur_tasseau + self.largueur_espace
             dwg.save()
+            #drawing = svg2rlg(filename)
+            #renderPDF.drawToFile(drawing, "%s_F%s.pdf"%(nom,face+1))
 
     def couleur(self, facteur):
         '''Renvoi la couleur d'une face selon son facteur

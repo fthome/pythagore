@@ -12,16 +12,10 @@ class tasseau(object):
     def __str__(self):
         return "tasseau_%s"%self.id
 
-    def tgenere(self, dwg, face):
-        '''Return un objet svgwrite
-        '''
-        svg_tasseau = dwg.defs.add(dwg.g(id=str(self)))
-        svg_tasseau.add(dwg.rect((self.table.largueur_espace,0),(self.table.largeur_tasseau ,self.table.longueur_tasseau)))
-        return svg_tasseau
-
     def genere(self,dwg, face):
         '''Return un objet svgwrite : une face du tasseau
         '''
+        print(str(self))
         g = dwg.defs.add(dwg.g())
         y = 0
         for bloc in self.blocs:

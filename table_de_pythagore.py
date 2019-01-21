@@ -32,4 +32,8 @@ ma_table.add_tasseau(2, tasseau(blocs=[
                         bloc(90,[10,9,2,45]),
                         bloc(9,[3,3,1,9])
                     ]))
-ma_table.genere('essai', [1,2])
+ma_table.add_tasseau(3, tasseau(blocs=[
+                        bloc(90,[10,9,2,45]),
+                        bloc(9,[3,3,1,9])
+                    ]))
+ma_table.genere('essai', [1,2,3])
