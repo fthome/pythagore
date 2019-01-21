@@ -19,9 +19,12 @@ class tasseau(object):
         g = dwg.defs.add(dwg.g())
         y = 0
         for bloc in self.blocs:
+            # Bloc
             g_bloc = bloc.genere(dwg, face)
             g.add(dwg.use(g_bloc, insert = (0,y)))
             y += bloc.valeur * self.table.longueur_unit
-            g.add(dwg.rect((0,y),(self.table.largeur_tasseau + self.table.largueur_espace / 2,self.table.longueur_unit),fill=self.table.couleur('spacer')))
-            y += self.table.longueur_spacer
+            # Séparateur
+            if y < self.table.longueur_tasseau - self.table.longueur_spacer:
+                g.add(dwg.rect((0,y),(self.table.largeur_tasseau + self.table.largueur_espace / 2,self.table.longueur_unit),fill=self.table.couleur('spacer')))
+                y += self.table.longueur_spacer
         return g

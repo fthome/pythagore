@@ -35,15 +35,33 @@ class table(object):
             bloc.table = self
             bloc.tasseau = tasseau
 
+    def test(self):
+        '''Test la cohérance des données
+        '''
+        print("TEST des données :")
+        blocs = []
+        for tasseau in self.tasseaux.itervalues():
+            blocs += tasseau.blocs
+        blocs.sort()
+        print("Nb de blocs : %s"%len(blocs))
+        error = 0
+        for bloc in blocs:
+            print(bloc)
+            error += bloc.test()
+        print("Erreurs dans la cohérance des données : %s"%error)
+        return error == 0
+
+
     def genere(self, nom, tasseaux_ids):
         '''genère les fichiers des 4 faces des tasseaux correspondant aux indices
             nom             :   nom racine des fichiers générés
             tasseaux_ids    :   liste d'indices
         '''
+        self.test()
         for face in range(4):
             print("face %s :"%face)
             filename = "%s_F%s.svg"%(nom,face+1)
-            w = len(tasseaux_ids)*(self.largeur_tasseau + self.largueur_espace) + self.largueur_espace 
+            w = len(tasseaux_ids)*(self.largeur_tasseau + self.largueur_espace) + self.largueur_espace
             h = self.longueur_tasseau
             dwg = svgwrite.Drawing(filename, (w,h), debug = True, profile = 'tiny')
             x = 0
