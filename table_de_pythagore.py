@@ -5,7 +5,11 @@ from bloc import *
 
 
 
-'''C'est le main !
+'''Programme principale pour générer une table de pythogore
+La description de la table se fait ici
+
+Usage python3 table_de_pythagore.py
+(python 3 pour génération pdf)
 '''
 
 couleurs = {

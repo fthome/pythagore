@@ -26,7 +26,7 @@ class bloc(object):
         #return "bloc_%s"%(self.indice)
         return "Bloc %s-%s"%(self.valeur, self.facteurs)
 
-    def __cmp__(self, other):
+    def __cmp__(self, other): # deprecié en python3
         return cmp((self.valeur, self.facteurs),(other.valeur, other.facteurs))
 
     def test(self):
@@ -73,11 +73,11 @@ class bloc(object):
         # Text (sauf pour facteur == 1)
         if self.facteurs[face] > 1:
             y = 0
-            for i in range(self.valeur / self.facteurs[face]):
-                y_text = y+self.facteurs[face]*self.table.longueur_unit/2 + 2
+            for i in range(self.valeur // self.facteurs[face]):
+                y_text = y+self.facteurs[face]*self.table.longueur_unit/2 + 3
                 text = dwg.text(str(self.facteurs[face]),insert=(largeur / 2 ,y_text) , text_anchor = 'middle',font_size=8)
                 if self.facteurs[face] in [6,9]:
-                    point = dwg.circle((largeur/2, y_text + 3), 1, fill = "black")
+                    point = dwg.circle((largeur/2, y_text + 2), 1, fill = "black")
                     g.add(point)
                 g.add(text)
                 y += self.table.longueur_unit*self.facteurs[face]

@@ -18,6 +18,7 @@ class tasseau(object):
         print(str(self))
         g = dwg.defs.add(dwg.g())
         y = 0
+        largeur = self.table.largeur_tasseau + self.table.largueur_espace / 2
         for bloc in self.blocs:
             # Bloc
             g_bloc = bloc.genere(dwg, face)
@@ -25,6 +26,9 @@ class tasseau(object):
             y += bloc.valeur * self.table.longueur_unit
             # Séparateur
             if y < self.table.longueur_tasseau - self.table.longueur_spacer:
-                g.add(dwg.rect((0,y),(self.table.largeur_tasseau + self.table.largueur_espace / 2,self.table.longueur_unit),fill=self.table.couleur('spacer')))
+                g.add(dwg.rect((0,y),(largeur,self.table.longueur_unit),fill=self.table.couleur('spacer')))
                 y += self.table.longueur_spacer
+        # On termine le tasseau en gris
+        if y < self.table.longueur_tasseau:
+            g.add(dwg.rect((0,y),(largeur, self.table.longueur_tasseau - y),fill=self.table.couleur('spacer')))
         return g

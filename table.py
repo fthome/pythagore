@@ -1,8 +1,10 @@
 # -*-coding:Utf-8 -*
 
 import svgwrite
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPDF
+#from svglib.svglib import svg2rlg
+#from reportlab.graphics import renderPDF
+
+from python2_3 import *
 
 class table(object):
     '''Une table de pythagore est un puzzle 3D
@@ -40,11 +42,12 @@ class table(object):
         '''
         print("TEST des données :")
         blocs = []
-        for tasseau in self.tasseaux.itervalues():
+        for tasseau in itervalues(self.tasseaux):
             blocs += tasseau.blocs
-        blocs.sort()
+        blocs.sort(key = lambda bloc:(bloc.valeur, bloc.facteurs))
         print("Nb de blocs : %s"%len(blocs))
         error = 0
+        # TEST des blocs
         for bloc in blocs:
             print(bloc)
             error += bloc.test()
@@ -63,15 +66,18 @@ class table(object):
             filename = "%s_F%s.svg"%(nom,face+1)
             w = len(tasseaux_ids)*(self.largeur_tasseau + self.largueur_espace) + self.largueur_espace
             h = self.longueur_tasseau
-            dwg = svgwrite.Drawing(filename, (w,h), debug = True, profile = 'tiny')
+            dwg = svgwrite.Drawing(filename, ("%smm"%w,"%smm"%h), debug = True, profile = 'tiny', viewBox=(0,0,w,h))
+            #dwg = svgwrite.Drawing(filename, (w,h), debug = True, profile = 'tiny')
             x = 0
             for tasseau_id in tasseaux_ids:
                 svg_tasseau = self.tasseaux[tasseau_id].genere(dwg, face)
                 dwg.add(dwg.use(svg_tasseau, insert = (x,0)))
                 x += self.largeur_tasseau + self.largueur_espace
             dwg.save()
-            drawing = svg2rlg(filename)
-            renderPDF.drawToFile(drawing, "%s_F%s.pdf"%(nom,face+1))
+            # En fait la génération du pdf par svg2rlg ne fonctionne pas : les rectangles gris sont perdus! et mauvaise prise en charge des units (mm)
+            # => on va utiliser un programme tiers (ie adobe illustrator)
+            #drawing = svg2rlg(filename)
+            #renderPDF.drawToFile(drawing, "%s_F%s.pdf"%(nom,face+1))
 
     def couleur(self, facteur):
         '''Renvoi la couleur d'une face selon son facteur
