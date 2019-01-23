@@ -27,7 +27,15 @@ couleurs = {
     'spacer' : "grey"
 }
 
-ma_table = table(couleurs = couleurs)
+ma_table = table( \
+                    couleurs = couleurs, \
+                    longueur_tasseau = 400, \
+                    largeur_tasseau = 22, \
+                    largueur_espace = 8.5, \
+                    longueur_unit = 4, \
+                    longueur_spacer = 3, \
+                    outfolder = "SVG" \
+                    )
 
 ma_table.add_tasseau(1, tasseau(blocs=[
                         bloc(100,[10,10,2,50])
