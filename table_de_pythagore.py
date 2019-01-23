@@ -2,6 +2,7 @@
 from table import *
 from tasseau import *
 from bloc import *
+from regle import *
 
 
 
@@ -24,17 +25,18 @@ couleurs = {
     9 : '#5488C7', # violet
     10 : '#E7344C', #rouge
     0 : 'white', # valeur par defaut
-    'spacer' : "grey"
+    'spacer' : "grey",
+    'premier' : "#C0C0C0" # pour nombre premier : gris clair
 }
 
 ma_table = table( \
-                    couleurs = couleurs, \
-                    longueur_tasseau = 400, \
-                    largeur_tasseau = 22, \
-                    largueur_espace = 8.5, \
-                    longueur_unit = 4, \
-                    longueur_spacer = 3, \
-                    outfolder = "SVG" \
+                    couleurs = couleurs,
+                    longueur_tasseau = 400, # en mm
+                    largeur_tasseau = 22, # en mm
+                    largueur_espace = 8.5, # Correspond à l'interval en mm entre deux tasseaux dans le gabarit
+                    longueur_unit = 4, # Correspond à la hauteur en mm de 1
+                    longueur_spacer = 3, #Correspond à l'épaisseur de la lame de scie
+                    outfolder = "SVG"
                     )
 
 ma_table.add_tasseau(1, tasseau(blocs=[
@@ -204,3 +206,33 @@ ma_table.genere('TABLE_1_', range(1,10))
 ma_table.genere('TABLE_2_', range(10,19))
 ma_table.genere('TABLE_3_', range(19,28))
 ma_table.genere('TABLE_4_', range(28,32))
+
+# Les accessoires
+
+accessoires = table( \
+                    couleurs = couleurs,
+                    longueur_tasseau = 400,
+                    largeur_tasseau = 22,
+                    largueur_espace = 8.5,
+                    longueur_unit = 4,
+                    longueur_spacer = 3,
+                    outfolder = "SVG"
+                    )
+blocs={i:bloc(i,[i,1,i,1]) for i in range(1,11)}
+
+accessoires.add_tasseau(1, tasseau(blocs=[blocs[10]]*9+[blocs[1]]))
+accessoires.add_tasseau(2, tasseau(blocs=[blocs[10]]+[blocs[9]]*9))
+accessoires.add_tasseau(3, tasseau(blocs=[blocs[9]]+[blocs[8]]*10))
+accessoires.add_tasseau(4, tasseau(blocs=[blocs[7]]*10+[blocs[6]]*3))
+accessoires.add_tasseau(5, tasseau(blocs=[blocs[6]]*7+[blocs[5]]*8+[blocs[3]]))
+accessoires.add_tasseau(6, tasseau(blocs=[blocs[5]]*2+[blocs[4]]*10+[blocs[3]]*9+[blocs[2]]))
+accessoires.add_tasseau(7, tasseau(blocs=[blocs[2],blocs[1]]*9+[b for b in blocs.values() if b.valeur < 10]))# Un de chaque trop sauf le 10
+accessoires.genere('ACCE_', range(1,8))
+
+accessoires.add_tasseau(8, tasseau(blocs = [regle(1,18)]))
+accessoires.add_tasseau(9, tasseau(blocs = [regle(19,36)]))
+accessoires.add_tasseau(10, tasseau(blocs = [regle(37,54)]))
+accessoires.add_tasseau(11, tasseau(blocs = [regle(55,72)]))
+accessoires.add_tasseau(12, tasseau(blocs = [regle(73,90)]))
+accessoires.add_tasseau(13, tasseau(blocs = [regle(91,100)]))
+accessoires.genere('REGLE_', range(8,14))

@@ -23,11 +23,13 @@ class bloc(object):
 
 
     def __str__(self):
-        #return "bloc_%s"%(self.indice)
         return "Bloc %s-%s"%(self.valeur, self.facteurs)
 
     def __cmp__(self, other): # deprecié en python3
         return cmp((self.valeur, self.facteurs),(other.valeur, other.facteurs))
+
+    def sort_key(self):
+            return (self.valeur, self.facteurs)
 
     def test(self):
         '''test la cohérence des données
@@ -53,8 +55,8 @@ class bloc(object):
         print("%s-face %s"%(str(self),face))
         # Create the group
         g = dwg.defs.add(dwg.g())
-        # Add rectangle
         largeur = self.table.largeur_tasseau + self.table.largueur_espace / 2
+        # Add rectangle
         g.add(dwg.rect( \
                 (0,0), \
                 (largeur, self.valeur*self.table.longueur_unit), \

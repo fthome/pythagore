@@ -45,7 +45,7 @@ class table(object):
         blocs = []
         for tasseau in itervalues(self.tasseaux):
             blocs += tasseau.blocs
-        blocs.sort(key = lambda bloc:(bloc.valeur, bloc.facteurs))
+        blocs.sort(key = lambda bloc:bloc.sort_key())
         print("Nb de blocs : %s"%len(blocs))
         error = 0
         # TEST des blocs
