@@ -18,10 +18,10 @@ class regle(object):
         '''
         self.debut = debut
         self.fin = fin
-        self.valeur = None
         #test que les facteurs sont bien des facteurs
         assert self.debut< self.fin, "Erreur dans la définition de la regle."
         self.tasseau = None
+        self.valeur = None
 
     @property
     def table(self):
@@ -40,22 +40,31 @@ class regle(object):
 
     def test(self):
         '''test la cohérence des données
+            Les régles doivent être à la fois d'une longueur multiple de la largeur des tasseaux (ok par construction),
+            Mais aussi d'une longueur multiple de la longueur des unités et début et fin doivent co-incider avec graduation.
         '''
-        return 0
+        if ((self.debut-1)*self.table.largeur_tasseau)%self.table.longueur_unit ==0 \
+            and (self.fin*self.table.largeur_tasseau)%self.table.longueur_unit == 0:
+            return 0
+        else:
+            print("Erreur dans %s : la longueur n'est pas un multiple des unités."%(self, ))
+            return 1
 
     def genere(self, dwg, face):
         '''Return un objet svgwrite : une face du bloc
+            - dwg       :   main drawing
+            - face      :   0-3
         '''
         print("%s-face %s"%(str(self),face))
         # Create the group
         g = dwg.defs.add(dwg.g())
         largeur = self.table.largeur_tasseau + self.table.largueur_espace / 2
 
-        if face == 4:
+        if face == 3:
             y = 0
             # rectangle gris pour les nombre premiers
             for i in range(self.debut,self.fin+1):
-                if i in primesieve.primes(100):
+                if i>10 and i in primesieve.primes(100):
                     g.add(dwg.rect( \
                             (0,y), \
                             (largeur, self.table.largeur_tasseau), \
@@ -63,26 +72,26 @@ class regle(object):
                             ))
                 y += self.table.largeur_tasseau
 
-        if face in [1,2,4]:
+        if face in [0,1,3]:
             # Graduation largeur de tasseau
             y = 0
             for i in range(self.debut,self.fin):
                 y += self.table.largeur_tasseau
                 g.add(dwg.line((0,y),(largeur,y), stroke='black', stroke_width=0.5))
 
-        if face == 1:
-            # Text de la face 1
+        if face in [0,3]:
+            # Text de la face 1 et 4
             y = self.table.largeur_tasseau / 2
             for i in range(self.debut,self.fin):
-                params = {'insert':(largeur / 2 ,y) , 'text_anchor' : 'middle','font_size':8, 'rotate' : "90"}
+                params = {'insert':(largeur / 2 ,y) , 'text_anchor' : 'middle','font_size':8, 'transform' : "rotate(90,%s,%s)"%(largeur / 2 ,y)}#'rotate':[90]} 
                 if i%5==0:
                     params['font_weight'] = 'bold'
                 g.add(dwg.text(str(i),**params))
                 y += self.table.largeur_tasseau
-        if face == 3:
+        if face == 2:
             #Une regle en unités
             y=0
-            for i in range((self.debut-1)*self.table.largeur_tasseau/self.table.longueur_unit,
+            for i in range((self.debut-1)*self.table.largeur_tasseau/self.table.longueur_unit+1,
                             self.fin*self.table.largeur_tasseau/self.table.longueur_unit):
                 y += self.table.longueur_unit
                 if i%10==0:
@@ -94,7 +103,7 @@ class regle(object):
                         params = {'stroke':'black', 'stroke_width':0.5}
                     g.add(dwg.line((0,y),(largeur_ligne,y), **params))
                     g.add(dwg.line((largeur - largeur_ligne,y),(largeur,y), **params))
-                    params = {'insert':(largeur / 2 ,y) , 'text_anchor' : 'middle','font_size':8, 'rotate' : "180"}
+                    params = {'insert':(largeur / 2 ,y+3) , 'text_anchor' : 'middle','font_size':8, 'rotate' : '0'}
                     if i%100==0:
                         params['font_weight'] = 'bold'
                     g.add(dwg.text(str(i),**params))
