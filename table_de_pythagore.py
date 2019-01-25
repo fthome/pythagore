@@ -48,12 +48,12 @@ ma_table.add_tasseau(2, tasseau(blocs=[
                     ]))
 ma_table.add_tasseau(3, tasseau(blocs=[
                         bloc(80,[10,8,2,40]),
-                        bloc(10,[10,1,2,5]),
+                        bloc(10,[10,1,2,5], color_face4 = 'white'), #  ilfaut que la face 4 soit blanche!!!
                         bloc(8,[8,1,2,4])
                     ]))
 ma_table.add_tasseau(4, tasseau(blocs=[
                         bloc(70,[10,7,2,35]),
-                        bloc(20,[10,2,2,10]),
+                        bloc(20,[10,2,2,10], color_face4 = 'white'),# ilfaut que la face 4 soit blanche!!!
                         bloc(8,[4,2,1,8])
                     ]))
 ma_table.add_tasseau(5, tasseau(blocs=[
@@ -94,7 +94,7 @@ ma_table.add_tasseau(12, tasseau(blocs=[
 ma_table.add_tasseau(13, tasseau(blocs=[
                         bloc(72,[8,9,4,18]),
                         bloc(16,[8,2,4,4]),
-                        bloc(10,[1,10,2,5])
+                        bloc(10,[1,10,2,5], color_face4 = 'white') # ilfaut que la face 4 soit blanche!!!
                     ]))
 ma_table.add_tasseau(14, tasseau(blocs=[
                         bloc(64,[8,8,2,32]),
@@ -114,7 +114,7 @@ ma_table.add_tasseau(16, tasseau(blocs=[
 ma_table.add_tasseau(17, tasseau(blocs=[
                         bloc(70,[7,10,2,35]),
                         bloc(7,[7,1,7,1]),
-                        bloc(20,[2,10,2,10])
+                        bloc(20,[2,10,2,10], color_face4 = 'white') # ilfaut que la face 4 soit blancche!!!
                     ]))
 ma_table.add_tasseau(18, tasseau(blocs=[
                         bloc(63,[7,9,3,21]),
@@ -173,7 +173,7 @@ ma_table.add_tasseau(26, tasseau(blocs=[
                     ]))
 ma_table.add_tasseau(27, tasseau(blocs=[
                         bloc(50,[5,10,2,25]),
-                        bloc(5,[1,5,5,1]),
+                        bloc(5,[1,5,1,5]), # modif% v2
                         bloc(40,[4,10,2,20]),
                         bloc(2,[1,2,1,2])
                     ]))
@@ -184,7 +184,7 @@ ma_table.add_tasseau(28, tasseau(blocs=[
                     ]))
 ma_table.add_tasseau(29, tasseau(blocs=[
                         bloc(40,[5,8,4,10]),
-                        bloc(15,[5,3,3,5]),
+                        bloc(15,[5,3,5,3]), #modif%v2
                         bloc(32,[4,8,2,16]),
                         bloc(4,[4,1,2,2]),
                         bloc(5,[1,5,1,5])
@@ -206,6 +206,27 @@ ma_table.genere('TABLE_1_', range(1,10))
 ma_table.genere('TABLE_2_', range(10,19))
 ma_table.genere('TABLE_3_', range(19,28))
 ma_table.genere('TABLE_4_', range(28,32))
+
+# Recup Erreur
+
+erreurs = table( \
+                    couleurs = couleurs,
+                    longueur_tasseau = 400,
+                    largeur_tasseau = 22,
+                    largueur_espace = 8.5,
+                    longueur_unit = 4,
+                    longueur_spacer = 3,
+                    outfolder = "SVG"
+                    )
+erreurs.add_tasseau(1,tasseau(blocs=[
+                    bloc(10,[10,1,2,5], color_face4 = 'white'), #  ilfaut que la face 4 soit blanche!!!
+                    bloc(20,[10,2,2,10], color_face4 = 'white'),# ilfaut que la face 4 soit blanche!!!
+                    bloc(10,[1,10,2,5], color_face4 = 'white'), # ilfaut que la face 4 soit blanche!!!
+                    bloc(20,[2,10,2,10], color_face4 = 'white'), # ilfaut que la face 4 soit blancche!!!
+                    bloc(5,[1,5,1,5]), # modif% v2
+                    bloc(15,[5,3,5,3]) #modif%v2
+]))
+#erreurs.genere('ERREURS',[1])
 
 # Les accessoires
 

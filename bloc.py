@@ -8,13 +8,14 @@ class bloc(object):
             * un facteur qui correspond au chiffre qui sera affiché
     '''
 
-    def __init__(self, valeur, facteurs):
+    def __init__(self, valeur, facteurs, color_face4 = False):
         '''Initialisation
             valeur      :    valeur total du blocs
             facteurs    :   facteurs des 4 faces
         '''
         self.valeur = valeur
         self.facteurs = facteurs
+        self.color_face4 = color_face4
         #test que les facteurs sont bien des facteurs
         for facteur in facteurs:
             assert self.valeur%facteur==0, "Erreur dans la définition de la table. %s n'est pas un bon facteur pour %s"%(facteur, self.valeur)
@@ -57,11 +58,12 @@ class bloc(object):
         g = dwg.defs.add(dwg.g())
         largeur = self.table.largeur_tasseau + self.table.largueur_espace / 2
         # Add rectangle
-        g.add(dwg.rect( \
-                (0,0), \
-                (largeur, self.valeur*self.table.longueur_unit), \
-                fill=self.table.couleur(self.facteurs[face]) \
-                ))
+        params = {}
+        if face == 3 and self.color_face4:
+            params['fill'] = self.color_face4
+        else:
+            params['fill'] = self.table.couleur(self.facteurs[face])
+        g.add(dwg.rect((0,0), (largeur, self.valeur*self.table.longueur_unit), **params))
         # Add graduation
         y = 0
         for i in range(self.valeur-1):# / self.facteurs[face]):
