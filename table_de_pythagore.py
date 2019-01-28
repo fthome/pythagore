@@ -218,15 +218,29 @@ erreurs = table( \
                     longueur_spacer = 3,
                     outfolder = "SVG"
                     )
-erreurs.add_tasseau(1,tasseau(blocs=[
-                    bloc(10,[10,1,2,5], color_face4 = 'white'), #  ilfaut que la face 4 soit blanche!!!
-                    bloc(20,[10,2,2,10], color_face4 = 'white'),# ilfaut que la face 4 soit blanche!!!
-                    bloc(10,[1,10,2,5], color_face4 = 'white'), # ilfaut que la face 4 soit blanche!!!
-                    bloc(20,[2,10,2,10], color_face4 = 'white'), # ilfaut que la face 4 soit blancche!!!
-                    bloc(5,[1,5,1,5]), # modif% v2
-                    bloc(15,[5,3,5,3]) #modif%v2
-]))
-#erreurs.genere('ERREURS',[1])
+erreurs.add_tasseau(1, tasseau(blocs=[
+                        bloc(100,[10,10,2,50])
+                    ]))
+erreurs.add_tasseau(2, tasseau(blocs=[
+                        bloc(90,[9,10,2,45]),
+                    ]))
+erreurs.add_tasseau(3, tasseau(blocs=[
+                        bloc(80,[8,10,2,40]),
+                        bloc(10,[1,10,2,5], color_face4 = 'white'), #  ilfaut que la face 4 soit blanche!!!
+                    ]))
+erreurs.add_tasseau(4, tasseau(blocs=[
+                        bloc(70,[7,10,2,35]),
+                        bloc(20,[2,10,2,10], color_face4 = 'white'),# ilfaut que la face 4 soit blanche!!!
+                    ]))
+erreurs.add_tasseau(5, tasseau(blocs=[
+                        bloc(60,[6,10,2,30]),
+                    ]))
+erreurs.add_tasseau(6, tasseau(blocs=[
+                        bloc(50,[5,10,2,25]),
+                        bloc(40,[4,10,2,20]),
+                    ]))
+
+#erreurs.genere('ERREURS',[1,2,3,4,5,6])
 
 # Les accessoires
 
