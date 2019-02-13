@@ -97,7 +97,7 @@ class regle(object):
                 if i%10==0:
                     # Si dizaine : ligne découpée + nombre
                     largeur_ligne = self.table.largueur_espace / 4 + self.table.largeur_tasseau / 5
-                    if i%100==0:
+                    if i%10==0:
                         params = {'stroke':'black', 'stroke_width':1}
                     else:
                         params = {'stroke':'black', 'stroke_width':0.5}
@@ -108,5 +108,9 @@ class regle(object):
                         params['font_weight'] = 'bold'
                     g.add(dwg.text(str(i),**params))
                 else:
-                    g.add(dwg.line((0,y),(largeur,y), stroke='black', stroke_width=0.5))
+                    if i%5==0:
+                        params = {'stroke':'black', 'stroke_width':0.75}
+                    else:
+                        params = {'stroke':'black', 'stroke_width':0.5}
+                    g.add(dwg.line((0,y),(largeur,y), **params))
         return g
