@@ -75,15 +75,15 @@ class regle(object):
         if face in [0,1,3]:
             # Graduation largeur de tasseau
             y = 0
-            for i in range(self.debut,self.fin):
+            for i in range(self.debut,self.fin+1):
                 y += self.table.largeur_tasseau
                 g.add(dwg.line((0,y),(largeur,y), stroke='black', stroke_width=0.5))
 
         if face in [0,3]:
             # Text de la face 1 et 4
             y = self.table.largeur_tasseau / 2
-            for i in range(self.debut,self.fin):
-                params = {'insert':(largeur / 2 ,y) , 'text_anchor' : 'middle','font_size':8, 'transform' : "rotate(90,%s,%s)"%(largeur / 2 ,y)}#'rotate':[90]} 
+            for i in range(self.debut,self.fin+1):
+                params = {'insert':(largeur / 2 ,y) , 'text_anchor' : 'middle','font_size':8, 'transform' : "rotate(90,%s,%s)"%(largeur / 2 ,y)}#'rotate':[90]}
                 if i%5==0:
                     params['font_weight'] = 'bold'
                 g.add(dwg.text(str(i),**params))

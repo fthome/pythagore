@@ -218,29 +218,8 @@ erreurs = table( \
                     longueur_spacer = 3,
                     outfolder = "SVG"
                     )
-erreurs.add_tasseau(1, tasseau(blocs=[
-                        bloc(100,[10,10,2,50])
-                    ]))
-erreurs.add_tasseau(2, tasseau(blocs=[
-                        bloc(90,[9,10,2,45]),
-                    ]))
-erreurs.add_tasseau(3, tasseau(blocs=[
-                        bloc(80,[8,10,2,40]),
-                        bloc(10,[1,10,2,5], color_face4 = 'white'), #  ilfaut que la face 4 soit blanche!!!
-                    ]))
-erreurs.add_tasseau(4, tasseau(blocs=[
-                        bloc(70,[7,10,2,35]),
-                        bloc(20,[2,10,2,10], color_face4 = 'white'),# ilfaut que la face 4 soit blanche!!!
-                    ]))
-erreurs.add_tasseau(5, tasseau(blocs=[
-                        bloc(60,[6,10,2,30]),
-                    ]))
-erreurs.add_tasseau(6, tasseau(blocs=[
-                        bloc(50,[5,10,2,25]),
-                        bloc(40,[4,10,2,20]),
-                    ]))
 
-#erreurs.genere('ERREURS',[1,2,3,4,5,6])
+#ma_table.genere('ERREURS',range(28,32)+[2,27,8])
 
 # Les accessoires
 
