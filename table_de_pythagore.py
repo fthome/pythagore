@@ -9,8 +9,7 @@ from regle import *
 '''Programme principale pour générer une table de pythogore
 La description de la table se fait ici
 
-Usage python3 table_de_pythagore.py
-(python 3 pour génération pdf)
+Usage python table_de_pythagore.py
 '''
 
 couleurs = {
@@ -218,8 +217,14 @@ erreurs = table( \
                     longueur_spacer = 3,
                     outfolder = "SVG"
                     )
+erreurs.add_tasseau(1, tasseau(blocs=[
+                        bloc(50,[10,5,2,25]),
+                        bloc(40,[10,4,2,20]),
+                        bloc(8,[1,8,2,4])
+                    ]))
+erreurs.genere('ERREURS', [1])
 
-#ma_table.genere('ERREURS',range(28,32)+[2,27,8])
+#ma_table.genere('ERREURS',range(28,32)+[20])
 
 # Les accessoires
 

@@ -64,7 +64,7 @@ class regle(object):
             y = 0
             # rectangle gris pour les nombre premiers
             for i in range(self.debut,self.fin+1):
-                if i>10 and i in primesieve.primes(100):
+                if i>1 and i in primesieve.primes(100):
                     g.add(dwg.rect( \
                             (0,y), \
                             (largeur, self.table.largeur_tasseau), \
@@ -82,8 +82,9 @@ class regle(object):
         if face in [0,3]:
             # Text de la face 1 et 4
             y = self.table.largeur_tasseau / 2
+            font_size = 8
             for i in range(self.debut,self.fin+1):
-                params = {'insert':(largeur / 2 ,y) , 'text_anchor' : 'middle','font_size':8, 'transform' : "rotate(90,%s,%s)"%(largeur / 2 ,y)}#'rotate':[90]}
+                params = {'insert':(largeur / 2 ,y+font_size/2) , 'text_anchor' : 'middle','font_size':font_size, 'transform' : "rotate(90,%s,%s)"%(largeur / 2 ,y)}
                 if i%5==0:
                     params['font_weight'] = 'bold'
                 g.add(dwg.text(str(i),**params))
@@ -97,10 +98,7 @@ class regle(object):
                 if i%10==0:
                     # Si dizaine : ligne découpée + nombre
                     largeur_ligne = self.table.largueur_espace / 4 + self.table.largeur_tasseau / 5
-                    if i%10==0:
-                        params = {'stroke':'black', 'stroke_width':1}
-                    else:
-                        params = {'stroke':'black', 'stroke_width':0.5}
+                    params = {'stroke':'black', 'stroke_width':1.5}
                     g.add(dwg.line((0,y),(largeur_ligne,y), **params))
                     g.add(dwg.line((largeur - largeur_ligne,y),(largeur,y), **params))
                     params = {'insert':(largeur / 2 ,y+3) , 'text_anchor' : 'middle','font_size':8, 'rotate' : '0'}
@@ -109,7 +107,7 @@ class regle(object):
                     g.add(dwg.text(str(i),**params))
                 else:
                     if i%5==0:
-                        params = {'stroke':'black', 'stroke_width':0.75}
+                        params = {'stroke':'black', 'stroke_width':1.5}
                     else:
                         params = {'stroke':'black', 'stroke_width':0.5}
                     g.add(dwg.line((0,y),(largeur,y), **params))

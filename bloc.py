@@ -8,7 +8,7 @@ class bloc(object):
             * un facteur qui correspond au chiffre qui sera affiché
     '''
 
-    def __init__(self, valeur, facteurs, color_face4 = False):
+    def __init__(self, valeur, facteurs, color_face4 = False, no_graduation = False):
         '''Initialisation
             valeur      :    valeur total du blocs
             facteurs    :   facteurs des 4 faces
@@ -16,6 +16,7 @@ class bloc(object):
         self.valeur = valeur
         self.facteurs = facteurs
         self.color_face4 = color_face4
+        self.no_graduation = no_graduation
         #test que les facteurs sont bien des facteurs
         for facteur in facteurs:
             assert self.valeur%facteur==0, "Erreur dans la définition de la table. %s n'est pas un bon facteur pour %s"%(facteur, self.valeur)
@@ -64,25 +65,26 @@ class bloc(object):
         else:
             params['fill'] = self.table.couleur(self.facteurs[face])
         g.add(dwg.rect((0,0), (largeur, self.valeur*self.table.longueur_unit), **params))
-        # Add graduation
-        y = 0
-        for i in range(self.valeur-1):# / self.facteurs[face]):
-            y += self.table.longueur_unit
-            if (i+1)%self.facteurs[face]==0:
-                g.add(dwg.line((0,y),(largeur,y), stroke='black', stroke_width=0.5))
-            else:
-                largeur_ligne = self.table.largueur_espace / 4 + self.table.largeur_tasseau / 5
-                g.add(dwg.line((0,y),(largeur_ligne,y), stroke='black', stroke_width=0.5))
-                g.add(dwg.line((largeur - largeur_ligne,y),(largeur,y), stroke='black', stroke_width=0.5))
-        # Text (sauf pour facteur == 1)
-        if self.facteurs[face] > 1:
+        if not self.no_graduation:
+            # Add graduation
             y = 0
-            for i in range(self.valeur // self.facteurs[face]):
-                y_text = y+self.facteurs[face]*self.table.longueur_unit/2 + 3
-                text = dwg.text(str(self.facteurs[face]),insert=(largeur / 2 ,y_text) , text_anchor = 'middle',font_size=8)
-                if self.facteurs[face] in [6,9]:
-                    point = dwg.circle((largeur/2, y_text + 2), 1, fill = "black")
-                    g.add(point)
-                g.add(text)
-                y += self.table.longueur_unit*self.facteurs[face]
+            for i in range(self.valeur-1):# / self.facteurs[face]):
+                y += self.table.longueur_unit
+                if (i+1)%self.facteurs[face]==0:
+                    g.add(dwg.line((0,y),(largeur,y), stroke='black', stroke_width=0.5))
+                else:
+                    largeur_ligne = self.table.largueur_espace / 4 + self.table.largeur_tasseau / 5
+                    g.add(dwg.line((0,y),(largeur_ligne,y), stroke='black', stroke_width=0.5))
+                    g.add(dwg.line((largeur - largeur_ligne,y),(largeur,y), stroke='black', stroke_width=0.5))
+            # Text (sauf pour facteur == 1)
+            if self.facteurs[face] > 1:
+                y = 0
+                for i in range(self.valeur // self.facteurs[face]):
+                    y_text = y+self.facteurs[face]*self.table.longueur_unit/2 + 3
+                    text = dwg.text(str(self.facteurs[face]),insert=(largeur / 2 ,y_text) , text_anchor = 'middle',font_size=8)
+                    if self.facteurs[face] in [6,9]:
+                        point = dwg.circle((largeur/2, y_text + 2), 1, fill = "black")
+                        g.add(point)
+                    g.add(text)
+                    y += self.table.longueur_unit*self.facteurs[face]
         return g
