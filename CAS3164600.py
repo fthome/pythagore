@@ -18,8 +18,8 @@ couleurs = {
     4 : 'white', # Blanc*	C0 M0 J0 N0
     5 : '#E20613', # Rouge*	C0 M100 J100 N1
     6 : '#000000', #Noir*	C0 M0 J0 N100
-    7 : '#E4388C', #Rose*	C3 M88 J0 N0
-    8 : '#E56E02',  # Orange*	C0 M65 J100 N5
+    7 : '#FF69B3', #Rose*	C3 M88 J0 N0
+    8 : '#FF8618',  # Orange*	C0 M65 J100 N5
     9 : '#934F99', # Violet*	C51 M78 J1 N0
     10 : '#6CB52D', #Vert*	C63 M0 J100 N0
     0 : 'white', # valeur par defaut
